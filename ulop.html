@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ULOP - URL List Opener</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <style media="screen">
+      body, html {
+        padding: 0;
+        margin: 0;
+        font-size: 16px;
+        font-family: sans-serif;
+      }
+      body {
+        background-color: #eee;
+      }
+
+      #wrap {
+        box-sizing: border-box;
+        background-color: #fff;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 520px;
+        padding: 20px;
+        margin: auto;
+      }
+
+      h1 {
+        font-size: 1.5em;
+        margin: 0;
+        padding: 0;
+      }
+
+      input, textarea {
+        max-width: 100%;
+      }
+
+      textarea {
+        box-sizing: border-box;
+        width: 100%;
+        height: 200px;
+        padding: 10px;
+      }
+
+      button {
+        padding: 10px;
+        border: 0;
+        margin: 0;
+        background-color: #D8D6D5;
+      }
+
+      .credit {
+        text-align: right;
+        margin-top: 30px;
+        font-size: 0.6em;
+        opacity: 0.3;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <div id="wrap">
+
+      <h1>ULOP - URL List Opener</h1>
+
+      <p>
+        <textarea placeholder="Paste your links here" id="links" name="links" rows="8" cols="40"></textarea>
+      </p>
+
+      <p>
+        <label><input type="radio" id="line-separated" checked name="name" value="">Links are in separate lines</label>
+      </p>
+
+      <p>
+        <label><input type="radio" id="comma-separated" name="name" value="">Links are separated by commas</label>
+      </p>
+
+      <p>
+        <button type="button" id="btn-open" name="button">Open Links</button>
+      </p>
+
+    </div>
+
+    <script  type="text/javascript">
+
+      var button = document.getElementById("btn-open");
+      button.addEventListener("click", function() {
+        var str = document.getElementById("links").value;
+        var links;
+
+        if (str == "") {
+          return;
+        }
+
+        if (document.getElementById("line-separated").checked) {
+          links = str.split("\n");
+
+          for (var i=0; i < links.length; i++) {
+            if (links[i] == "") {
+              links.splice(i, 1);
+            }
+
+            if (links[i]) {
+              links[i] = links[i].replace(",", "");
+              //console.log(links[i]);
+            }
+          }
+        } else {
+          links = str.split(",");
+        }
+        //console.log(links);
+        for (var i=0; i<links.length; i++) {
+          window.open(links[i],'_blank');
+        }
+      });
+
+    </script>
+
+
+
+  </body>
+</html>
